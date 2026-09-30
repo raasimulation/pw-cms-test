@@ -1,0 +1,44 @@
+---
+layout: base.njk
+title: Rasim Bayramov
+---
+{% block head %}
+<link rel="stylesheet" href="/home.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.js"></script>
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+{% endblock %}
+{% block body %}
+<div class="intro-description">
+  <span id="left-body"><span id="name-hover">{{ site.name }} </span><span id="web-text">{{ site.intro | safe }}</span></span>
+  <span id="links">
+  {% for link in site.links %}<a href="{{ link.url }}" onmouseover="playJingle()" target="_blank">{{ link.label }}</a>{% if not loop.last %}&nbsp;{% endif %}{% endfor %}
+  </span>
+  <span id="mobile-text">{{ site.mobile_intro }}</span>
+  <div class="filter-buttons">
+    <button id="clear-filter" class="clear-filter-button" onclick="clearFilter()">Clear Filter</button>
+    {% for filter in site.filters %}<button id="{{ filter }}-filter" class="filter-button" onclick="filterSelection('{{ filter }}')">{{ filter }}</button>{% endfor %}
+  </div>
+</div>
+
+<div class="content">
+{% for project in collections.projects %}
+  {% if project.data.listed %}
+  <div class="media-item{% for filter in project.data.filters %} {{ filter }}{% endfor %}">
+    {% if project.data.detail_enabled %}<a href="{{ project.url }}">{% else %}<a href="#">{% endif %}
+      <div class="p-image">
+        {% if project.data.cover.type == 'video' %}<video autoplay loop playsinline muted src="{{ project.data.cover.src }}"></video>{% else %}<img src="{{ project.data.cover.src }}" alt="">{% endif %}
+      </div>
+    </a>
+    <div class="p-top">
+      <div class="p-title">{% if project.data.detail_enabled %}<a href="{{ project.url }}">{{ project.data.home_title }}</a>{% else %}<a href="#">{{ project.data.home_title }}</a>{% endif %}</div>
+      <div class="p-details">{{ project.data.display_categories }}<span class="p-year">{{ project.data.year }}</span></div>
+    </div>
+  </div>
+  {% endif %}
+{% endfor %}
+</div>
+<div class="update-date">Last updated on {{ site.last_updated }}</div>
+<section id="mobile-reminder"><span style="font-size:24px;line-height:36px;">💻</span><br>{{ site.mobile_reminder }}</section>
+<script src="/assets/script.js"></script>
+<script src="/assets/ink.js"></script>
+{% endblock %}
