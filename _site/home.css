@@ -103,9 +103,9 @@ a {
 
 .title {
   visibility: hidden;
-  width: min(70vw, 58rem);
-  bottom: 2%;
-  left: 2%;
+  width: 42%;
+  top: 2%;
+  right: 2%;
   z-index: 20;
   color: white;
   position: fixed;
@@ -113,7 +113,7 @@ a {
   font-size: clamp(3rem, 6.2vw, 7rem);
   line-height: 0.92;
   letter-spacing: -0.045em;
-  mix-blend-mode: color-dodge;
+  mix-blend-mode: difference;
   pointer-events: none;
 }
 
@@ -178,11 +178,11 @@ a {
   text-underline-offset: 0.12em;
 }
 
-.project-description > :first-child {
+.project-description> :first-child {
   margin-top: 0;
 }
 
-.project-description > :last-child {
+.project-description> :last-child {
   margin-bottom: 0;
 }
 
