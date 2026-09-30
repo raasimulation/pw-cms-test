@@ -106,6 +106,7 @@ a {
   width: 42%;
   top: 2%;
   right: 2%;
+  text-align: right;
   z-index: 20;
   color: white;
   position: fixed;
