@@ -5,9 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>{{ title or site.name }}</title>
   <link rel="icon" href="/favicon/r.gif" type="image/gif">
-  {% block head %}{% endblock %}
+  {% if home %}
+  <link rel="stylesheet" href="/home.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  {% endif %}
 </head>
 <body>
-  {% block body %}{% endblock %}
+  {{ content | safe }}
 </body>
 </html>

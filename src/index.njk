@@ -1,13 +1,8 @@
 ---
 layout: base.njk
 title: Rasim Bayramov
+home: true
 ---
-{% block head %}
-<link rel="stylesheet" href="/home.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.js"></script>
-<link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
-{% endblock %}
-{% block body %}
 <div class="intro-description">
   <span id="left-body"><span id="name-hover">{{ site.name }} </span><span id="web-text">{{ site.intro | safe }}</span></span>
   <span id="links">
@@ -41,4 +36,3 @@ title: Rasim Bayramov
 <section id="mobile-reminder"><span style="font-size:24px;line-height:36px;">💻</span><br>{{ site.mobile_reminder }}</section>
 <script src="/assets/script.js"></script>
 <script src="/assets/ink.js"></script>
-{% endblock %}
