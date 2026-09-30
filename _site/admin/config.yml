@@ -1,0 +1,97 @@
+# Sveltia CMS configuration for rasim.run
+# Before deploying, replace YOUR_GITHUB_USERNAME/YOUR_REPO with your real repository.
+backend:
+  name: github
+  repo: raasimulation/pw-cms-test
+  branch: main
+
+media_folder: /src/assets
+public_folder: /assets
+
+collections:
+  - name: projects
+    label: Projects
+    label_singular: Project
+    folder: /src/projects
+    create: true
+    extension: md
+    format: frontmatter
+    identifier_field: title
+    summary: "{{title}} — {{year}}"
+    sortable_fields: [order, title, year]
+    fields:
+      - { name: title, label: Project title, widget: string }
+      - { name: home_title, label: Homepage title, widget: string, hint: "Can include ‘(Coming soon)’ without changing the detail-page title." }
+      - { name: year, label: Year, widget: string }
+      - { name: order, label: Homepage order, widget: number, value_type: int, default: 999 }
+      - { name: listed, label: Show on homepage, widget: boolean, default: true }
+      - { name: detail_enabled, label: Enable project page, widget: boolean, default: true }
+      - { name: coming_soon, label: Coming soon, widget: boolean, default: false }
+      - { name: display_categories, label: Display categories, widget: string, hint: "The text shown below the project title." }
+      - name: filters
+        label: Filters
+        widget: select
+        multiple: true
+        required: false
+        options:
+              - "Identity"
+              - "Print"
+              - "Sound"
+              - "Video"
+              - "Poster"
+              - "Digital"
+              - "Website"
+              - "Installation"
+              - "Performance"
+              - "Workshop"
+      - name: cover
+        label: Homepage cover
+        widget: object
+        fields:
+          - { name: type, label: Type, widget: select, options: [image, video], default: image }
+          - { name: src, label: File, widget: file }
+      - name: project_links
+        label: Project links
+        widget: list
+        required: false
+        fields:
+          - { name: label, label: Label, widget: string }
+          - { name: url, label: URL, widget: string }
+      - name: media
+        label: Project media
+        widget: list
+        required: false
+        fields:
+          - { name: type, label: Type, widget: select, options: [image, video], default: image }
+          - { name: src, label: File, widget: file }
+          - { name: autoplay, label: Autoplay, widget: boolean, default: true, required: false }
+          - { name: muted, label: Muted, widget: boolean, default: true, required: false }
+          - { name: loop, label: Loop, widget: boolean, default: true, required: false }
+          - { name: playsinline, label: Plays inline, widget: boolean, default: true, required: false }
+          - { name: controls, label: Show controls, widget: boolean, default: false, required: false }
+          - { name: volume, label: Volume (0–1), widget: number, value_type: float, min: 0, max: 1, step: 0.01, required: false }
+      - { name: body, label: Description, widget: markdown, required: false }
+
+  - name: settings
+    label: Site settings
+    files:
+      - name: site
+        label: Homepage + global settings
+        file: /src/_data/site.json
+        format: json
+        fields:
+          - { name: name, label: Name, widget: string }
+          - { name: intro, label: Desktop introduction, widget: text }
+          - { name: mobile_intro, label: Mobile introduction, widget: text }
+          - name: links
+            label: Header links
+            widget: list
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: url, label: URL, widget: string }
+          - name: filters
+            label: Filter buttons
+            widget: list
+            field: { name: value, label: Filter, widget: string }
+          - { name: last_updated, label: Last updated, widget: string }
+          - { name: mobile_reminder, label: Mobile reminder, widget: text }
