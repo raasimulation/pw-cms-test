@@ -50,3 +50,25 @@ Projects expose: title, homepage title, year, order, homepage visibility, catego
 ## Design freedom
 
 CMS data does not control layout. Change `index.njk`, `project.njk`, `home.css`, `detail.css`, or JS whenever you want. Existing content will flow into the new design automatically.
+
+## New homepage / project viewer
+
+The homepage design now comes from the supplied black five-column prototype. Existing CMS projects, descriptions, covers, media, links, years, and categories are unchanged.
+
+Project clicks are handled in-place on the homepage by `src/assets/viewer.js`:
+
+- click a project cover -> opens its project detail without a page reload
+- media is lazy-loaded only when that project is opened
+- the URL becomes `/#project-slug`, so the state can be linked directly
+- browser Back and the on-page Back control return to the index
+- the original grid scroll position is restored
+- Escape also closes the viewer
+
+Design files to edit most often:
+
+- `src/index.njk` — homepage + same-page viewer HTML/Nunjucks
+- `src/home.css` — all homepage/viewer styling
+- `src/assets/viewer.js` — project opening/closing/history behavior
+- `src/_includes/project.njk` — fallback standalone `/pages/*.html` layout
+
+The CMS remains at `/admin/` and still edits the same project records under `src/projects/`.

@@ -1,23 +1,22 @@
 {
   "name": "Rasim Bayramov",
-  "intro": "is a designer and artist\n                exploring collectivity and participation through themes of\n                playfulness, anticipation, bureaucratic structures, and post-colonial reality. These ideas find\n                themselves\n                in websites, installations, printed matter, videos, performances and sculptures.",
-  "mobile_intro": "Rasim Bayramov is a designer and artist interested in unfolding of objects, humans,\n            technologies and their invisible links through websites, sculptures, print and more",
+  "intro": "is a designer and artist exploring collectivity and participation through themes of playfulness, anticipation, bureaucratic structures, and post-colonial reality. These ideas find themselves in websites, installations, printed matter, videos, performances and sculptures.",
+  "teaching": "Rasim has taught classes in Virginia Commonwealth University School of Arts and Middle East Technical University, and has led workshops/talks in Rhode Island School of Design, School for Poetic Computation, VCUarts.",
+  "clients": "For Freedoms, ICA Richmond, Kunsthall Stavanger, David Zwirner Books, Doktar, Turkish Airlines, Refresh, The Anderson, Garanti BBVA, VakıfBank, University of Virginia, School for Poetic Computation, VCUarts, VCUarts Qatar, VCU Douglass Wilder School.",
+  "collaborators": "Charles O'Leary, aya khalife, Molly Garrett, taehee yoonseul, nicole killian, Luiza Dale, Herdimas Anggara, khai tsng, Tariye George-Phillips, Nneoma Njoku, Milena Paul, Isabelle Samay, River Huynh",
+  "mobile_intro": "Rasim Bayramov is a designer and artist interested in unfolding of objects, humans, technologies and their invisible links through websites, sculptures, print and more",
   "links": [
     {
-      "label": "Email",
-      "url": "mailto:rasimbayramovj@gmail.com"
-    },
-    {
-      "label": "Instagram",
-      "url": "https://www.instagram.com/rasimsimsim/"
-    },
-    {
-      "label": "Are.na",
-      "url": "https://www.are.na/rasim-bayramov"
+      "label": "mail@rasim.run",
+      "url": "mailto:mail@rasim.run"
     },
     {
       "label": "Resume",
       "url": "https://drive.google.com/file/d/1IYYnEueB4S1kxrfCnsZXXHi7l5dItShP/view"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/rasimsimsim/"
     }
   ],
   "filters": [

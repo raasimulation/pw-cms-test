@@ -3,37 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title }}</title>
-  <link rel="stylesheet" href="/detail.css">
+  <title>{{ title }} — {{ site.name }}</title>
+  <link rel="stylesheet" href="/home.css">
   <link rel="icon" href="/favicon/r.gif" type="image/gif">
 </head>
 <body>
-  <div class="intro-description">
-    <span id="left-body" onclick="location.href='/'">{{ site.name }}</span>
-    <span id="links">{% for link in site.links %}<a href="{{ link.url }}">{{ link.label }}</a>{% if not loop.last %}&nbsp;{% endif %}{% endfor %}</span>
-  </div>
-  <div class="content">
-    <div class="info-banner">
-      <div class="p-top">
-        <div class="p-title">{{ title }}</div>
-        <div class="p-details">{{ display_categories }}<span class="p-year">{{ year }}</span></div>
-        {% for link in project_links %}<a href="{{ link.url }}" style="text-decoration:underline;" target="_blank">{{ link.label }}</a>{% endfor %}
+  <section class="project-viewer" style="display:block">
+    <a class="viewer-back" href="/">← Index</a>
+    <article class="project-detail">
+      <header class="project-information">
+        <div class="project-information-main">
+          <h1>{{ title }}</h1>
+          <div>{{ display_categories }}{% if year %}<span class="project-year">{{ year }}</span>{% endif %}</div>
+          {% if project_links and project_links.length %}
+          <div class="project-links">
+            {% for link in project_links %}<a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a>{% if not loop.last %} {% endif %}{% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="project-description">{{ content | safe }}</div>
+      </header>
+      <div class="project-media">
+        {% for item in media %}
+          {% if item.type == 'video' %}
+            <video src="{{ item.src }}"{% if item.autoplay %} autoplay{% endif %}{% if item.muted %} muted{% endif %}{% if item.loop %} loop{% endif %}{% if item.playsinline %} playsinline{% endif %}{% if item.controls %} controls{% endif %}{% if item.volume is defined %} onloadedmetadata="this.volume={{ item.volume }}"{% endif %}></video>
+          {% else %}
+            <img src="{{ item.src }}" alt="">
+          {% endif %}
+        {% endfor %}
       </div>
-      <div class="p-text">{{ content | safe }}</div>
-    </div>
-    <div class="images">
-      {% for item in media %}
-        {% if item.type == 'video' %}
-          <video{% if item.autoplay %} autoplay{% endif %}{% if item.muted %} muted{% endif %}{% if item.loop %} loop{% endif %}{% if item.playsinline %} playsinline{% endif %}{% if item.controls %} controls{% endif %}{% if item.volume %} onloadedmetadata="this.volume={{ item.volume }}"{% endif %} src="{{ item.src }}"></video>
-        {% else %}
-          <img src="{{ item.src }}" alt="">
-        {% endif %}
-      {% endfor %}
-    </div>
-    <section class="navigation">
-      <button onclick="location.href='/'">INDEX</button>
-      <section id="mobile-reminder"><span style="font-size:24px;line-height:36px;">💻</span><br>{{ site.mobile_reminder }}</section>
-    </section>
-  </div>
+    </article>
+  </section>
 </body>
 </html>

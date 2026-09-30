@@ -3,36 +3,80 @@ layout: base.njk
 title: Rasim Bayramov
 home: true
 ---
-<div class="intro-description">
-  <span id="left-body"><span id="name-hover">{{ site.name }} </span><span id="web-text">{{ site.intro | safe }}</span></span>
-  <span id="links">
-  {% for link in site.links %}<a href="{{ link.url }}" onmouseover="playJingle()" target="_blank">{{ link.label }}</a>{% if not loop.last %}&nbsp;{% endif %}{% endfor %}
-  </span>
-  <span id="mobile-text">{{ site.mobile_intro }}</span>
-  <div class="filter-buttons">
-    <button id="clear-filter" class="clear-filter-button" onclick="clearFilter()">Clear Filter</button>
-    {% for filter in site.filters %}<button id="{{ filter }}-filter" class="filter-button" onclick="filterSelection('{{ filter }}')">{{ filter }}</button>{% endfor %}
-  </div>
-</div>
-
-<div class="content">
-{% for project in collections.projects %}
-  {% if project.data.listed %}
-  <div class="media-item{% for filter in project.data.filters %} {{ filter }}{% endfor %}">
-    {% if project.data.detail_enabled %}<a href="{{ project.url }}">{% else %}<a href="#">{% endif %}
-      <div class="p-image">
-        {% if project.data.cover.type == 'video' %}<video autoplay loop playsinline muted src="{{ project.data.cover.src }}"></video>{% else %}<img src="{{ project.data.cover.src }}" alt="">{% endif %}
-      </div>
-    </a>
-    <div class="p-top">
-      <div class="p-title">{% if project.data.detail_enabled %}<a href="{{ project.url }}">{{ project.data.home_title }}</a>{% else %}<a href="#">{{ project.data.home_title }}</a>{% endif %}</div>
-      <div class="p-details">{{ project.data.display_categories }}<span class="p-year">{{ project.data.year }}</span></div>
+<main id="index-view">
+  <section class="top-information" aria-label="About Rasim Bayramov">
+    <div class="ti-s" id="symbol">&*&</div>
+    <div class="ti-bs">
+      <div class="ti-s"><span class="person-name">{{ site.name }}</span> {{ site.intro | safe }}</div>
+      <div class="ti-s">{{ site.teaching | safe }}</div>
+      <div class="ti-s">Clients include<br>{{ site.clients | safe }}</div>
+      <div class="ti-s">Collaborators<br>{{ site.collaborators | safe }}</div>
+      <div class="ti-s links-block">Links<br>{% for link in site.links %}<a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a>{% if not loop.last %} {% endif %}{% endfor %}</div>
     </div>
-  </div>
-  {% endif %}
-{% endfor %}
-</div>
-<div class="update-date">Last updated on {{ site.last_updated }}</div>
-<section id="mobile-reminder"><span style="font-size:24px;line-height:36px;">💻</span><br>{{ site.mobile_reminder }}</section>
-<script src="/assets/script.js"></script>
-<script src="/assets/ink.js"></script>
+  </section>
+
+  <section class="grid" aria-label="Projects">
+    {% for project in collections.projects %}
+      {% if project.data.listed %}
+        {% if project.data.detail_enabled %}
+        <a class="project project-trigger" href="#{{ project.fileSlug }}" data-project="{{ project.fileSlug }}" aria-label="Open {{ project.data.title }}">
+        {% else %}
+        <div class="project project-disabled" aria-label="{{ project.data.title }}">
+        {% endif %}
+          <div class="title">{{ project.data.home_title }}</div>
+          <div class="project-cover">
+            {% if project.data.cover.type == 'video' %}
+              <video autoplay loop playsinline muted preload="metadata" src="{{ project.data.cover.src }}"></video>
+            {% else %}
+              <img src="{{ project.data.cover.src }}" alt="" loading="lazy">
+            {% endif %}
+          </div>
+        {% if project.data.detail_enabled %}</a>{% else %}</div>{% endif %}
+      {% endif %}
+    {% endfor %}
+  </section>
+</main>
+
+<section id="project-viewer" class="project-viewer" aria-live="polite" aria-hidden="true">
+  <button class="viewer-back" type="button" aria-label="Back to project index">← Back</button>
+
+  {% for project in collections.projects %}
+    {% if project.data.detail_enabled %}
+    <article class="project-detail" data-project-detail="{{ project.fileSlug }}" hidden>
+      <header class="project-information">
+        <div class="project-information-main">
+          <h1>{{ project.data.title }}</h1>
+          <div>{{ project.data.display_categories }}{% if project.data.year %}<span class="project-year">{{ project.data.year }}</span>{% endif %}</div>
+          {% if project.data.project_links and project.data.project_links.length %}
+          <div class="project-links">
+            {% for link in project.data.project_links %}<a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a>{% if not loop.last %} {% endif %}{% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="project-description">{{ project.templateContent | safe }}</div>
+      </header>
+
+      <div class="project-media">
+        {% for item in project.data.media %}
+          {% if item.type == 'video' %}
+            <video
+              data-src="{{ item.src }}"
+              preload="none"
+              {% if item.autoplay %}data-autoplay="true"{% endif %}
+              {% if item.muted %}muted{% endif %}
+              {% if item.loop %}loop{% endif %}
+              {% if item.playsinline %}playsinline{% endif %}
+              {% if item.controls %}controls{% endif %}
+              {% if item.volume is defined %}data-volume="{{ item.volume }}"{% endif %}
+            ></video>
+          {% else %}
+            <img data-src="{{ item.src }}" alt="" loading="lazy">
+          {% endif %}
+        {% endfor %}
+      </div>
+    </article>
+    {% endif %}
+  {% endfor %}
+</section>
+
+<script src="/assets/viewer.js"></script>
