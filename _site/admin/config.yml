@@ -81,6 +81,8 @@ collections:
         format: json
         fields:
           - { name: name, label: Name, widget: string }
+          - { name: intro_text, label: Intro animation text, widget: string, required: false, hint: "Letters spread around a circle on page load. Leave empty to use the Name." }
+          - { name: intro_repeat, label: Intro animation plays, widget: select, options: [{ label: "Once per visit", value: session }, { label: "Every page load", value: always }], default: session, required: false }
           - { name: intro, label: Introduction, widget: text }
           - { name: teaching, label: Teaching / talks, widget: text }
           - { name: clients, label: Clients, widget: text }
