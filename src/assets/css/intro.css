@@ -1,0 +1,139 @@
+/* =========================================================================
+   INTRO ANIMATION
+   The letters of the intro text sit evenly around a circle, then repeat in rings
+   that appear one after another outward. Then the whole thing blurs away.
+
+   Text:     src/_data/site.json → "intro_text"  (also in the CMS: Site settings)
+   Repeat:   src/_data/site.json → "intro_repeat" ("session" = once per visit, "always" = every load)
+   Everything visual and every timing: the variables below.
+   Click, any key, or scrolling skips it.
+   ========================================================================= */
+
+:root {
+  /* look */
+  --intro-bg: var(--index-bg, #f8f8f6);
+  --intro-color: rgb(106, 150, 237);
+  --intro-font-size: 0.95rem;
+  --intro-font-weight: 500;
+  --intro-text-transform: uppercase;             /* none | uppercase | lowercase */
+
+  /* shape */
+  --intro-rings: 5;                              /* how many rings (whole number) */
+  --intro-radius-min: 3.5rem;                    /* inner ring radius */
+  --intro-letter-space: 1.75rem;                 /* inner ring grows if the text is long, keeping at least this between letters */
+  --intro-ring-gap: min(3.5rem, 7vmin);          /* distance between rings */
+  --intro-direction: -1;                         /* -1 counter-clockwise (like the reference), 1 clockwise */
+
+  /* timing */
+  --intro-start-delay: 200ms;                    /* before the first ring */
+  --intro-ring-interval: 130ms;                  /* between rings */
+  --intro-stamp-duration: 60ms;                  /* each letter's fade-in (0ms = hard stamp) */
+  --intro-stamp-ease: linear;
+  --intro-hold: 900ms;                           /* all rings visible */
+  --intro-exit-duration: 750ms;                  /* blur away */
+  --intro-exit-ease: cubic-bezier(0.55, 0, 0.45, 1);
+  --intro-exit-blur: 18px;
+  --intro-exit-scale: 1.12;                      /* rings drift outward while leaving (1 = no drift) */
+  --intro-skip-duration: 320ms;                  /* exit speed when skipped */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --intro-ring-interval: 0ms;
+    --intro-stamp-duration: 0ms;
+    --intro-exit-blur: 0px;
+    --intro-exit-scale: 1;
+    --intro-hold: 1100ms;
+    --intro-exit-duration: 400ms;
+  }
+}
+
+
+/* ---- layout (edit with care) ------------------------------------------ */
+
+.intro {
+  display: none;
+}
+
+html.intro-on .intro {
+  --intro-exit-delay: calc(var(--intro-start-delay) + var(--intro-rings) * var(--intro-ring-interval) + var(--intro-hold));
+
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: hidden;
+  background: var(--intro-bg);
+  color: var(--intro-color);
+  font-family: var(--font-intro, inherit);
+  font-size: var(--intro-font-size);
+  font-weight: var(--intro-font-weight);
+  line-height: 1;
+  text-transform: var(--intro-text-transform);
+  user-select: none;
+  animation: intro-exit var(--intro-exit-duration) var(--intro-exit-ease) var(--intro-exit-delay) forwards;
+}
+
+/* A single point in the middle of the screen; letters are placed around it. */
+.intro-stage {
+  /* --n (number of characters) is set by intro.js */
+  --intro-radius: max(var(--intro-radius-min), calc(var(--n, 8) * var(--intro-letter-space) / 6.2832));
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+html.intro-on .intro-stage {
+  animation: intro-stage-exit var(--intro-exit-duration) var(--intro-exit-ease) var(--intro-exit-delay) forwards;
+}
+
+.intro-letter {
+  /* --i (position around the circle) and --ring are set per letter by intro.js */
+  --angle: calc(1turn * var(--i) / var(--n) * var(--intro-direction));
+  --r: calc(var(--intro-radius) + var(--ring) * var(--intro-ring-gap));
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(var(--r) * -1)) rotate(calc(var(--angle) * -1));
+  opacity: 0;
+  animation: intro-stamp var(--intro-stamp-duration) var(--intro-stamp-ease) forwards;
+  animation-delay: calc(var(--intro-start-delay) + var(--ring) * var(--intro-ring-interval));
+}
+
+/* Skipped: same exit, faster, starting now. */
+html.intro-on .intro.is-skipping {
+  animation: intro-exit-skip var(--intro-skip-duration) var(--intro-exit-ease) forwards;
+}
+
+html.intro-on .intro.is-skipping .intro-stage {
+  animation: intro-stage-exit-skip var(--intro-skip-duration) var(--intro-exit-ease) forwards;
+}
+
+@keyframes intro-stamp {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes intro-exit {
+  from { opacity: 1; }
+  to   { opacity: 0; visibility: hidden; }
+}
+
+@keyframes intro-exit-skip {
+  from { opacity: 1; }
+  to   { opacity: 0; visibility: hidden; }
+}
+
+@keyframes intro-stage-exit {
+  from { filter: blur(0); transform: scale(1); }
+  to   { filter: blur(var(--intro-exit-blur)); transform: scale(var(--intro-exit-scale)); }
+}
+
+@keyframes intro-stage-exit-skip {
+  from { filter: blur(0); transform: scale(1); }
+  to   { filter: blur(var(--intro-exit-blur)); transform: scale(var(--intro-exit-scale)); }
+}

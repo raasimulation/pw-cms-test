@@ -1,0 +1,55 @@
+/* =========================================================================
+   FONTS
+   To change typefaces you only touch this file (plus the preload line in
+   _includes/base.njk if you swap Allo out).
+
+   1. Load the font: an @import (Google Fonts etc.) at the very top, or an
+      @font-face block for files in /assets/fonts/.
+   2. Point the variables in :root at it.
+   ========================================================================= */
+
+
+/* ---- 1a. Google Fonts / hosted fonts --------------------------------------
+   @import must stay above every other rule in this file. Example:
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+*/
+
+
+/* ---- 1b. Self-hosted: Allo (SIL Open Font License, allo.joshpuckett.me) ---
+   AlloVariable.woff2 has the weight, roundness and optical-size axes (726 KB).
+   For a smaller file (291 KB, roundness fixed at 50), change the src below to
+   AlloVariableFriendly.woff2 and update the preload in base.njk to match.    */
+
+@font-face {
+  font-family: "Allo";
+  src: url("/assets/fonts/allo/AlloVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Obliques: only downloaded if italic text appears on the page. */
+@font-face { font-family: "Allo"; src: url("/assets/fonts/allo/Allo-ThinOblique.woff2") format("woff2"); font-weight: 100; font-style: italic; font-display: swap; }
+@font-face { font-family: "Allo"; src: url("/assets/fonts/allo/Allo-ExtraLightOblique.woff2") format("woff2"); font-weight: 200; font-style: italic; font-display: swap; }
+@font-face { font-family: "Allo"; src: url("/assets/fonts/allo/Allo-LightOblique.woff2") format("woff2"); font-weight: 300; font-style: italic; font-display: swap; }
+@font-face { font-family: "Allo"; src: url("/assets/fonts/allo/Allo-Oblique.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Allo"; src: url("/assets/fonts/allo/Allo-MediumOblique.woff2") format("woff2"); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: "Allo"; src: url("/assets/fonts/allo/Allo-SemiBoldOblique.woff2") format("woff2"); font-weight: 600; font-style: italic; font-display: swap; }
+@font-face { font-family: "Allo"; src: url("/assets/fonts/allo/Allo-BoldOblique.woff2") format("woff2"); font-weight: 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Allo"; src: url("/assets/fonts/allo/Allo-ExtraBoldOblique.woff2") format("woff2"); font-weight: 800; font-style: italic; font-display: swap; }
+@font-face { font-family: "Allo"; src: url("/assets/fonts/allo/Allo-BlackOblique.woff2") format("woff2"); font-weight: 900; font-style: italic; font-display: swap; }
+
+
+/* ---- 2. Which font goes where ------------------------------------------- */
+:root {
+  --font-body: "Allo", system-ui, sans-serif;     /* paragraphs, links, project text */
+  --font-title: var(--font-body);                 /* hover titles, project names */
+  --font-intro: var(--font-title);                /* intro animation letters */
+
+  --font-body-weight: 500;
+  --font-title-weight: 300;
+
+  /* Allo only: 0 = sharp, 50 = default, 100 = round. Other fonts ignore it. */
+  --font-roundness: 50;
+}

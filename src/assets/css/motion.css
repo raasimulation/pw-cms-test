@@ -1,0 +1,168 @@
+/* =========================================================================
+   MOTION
+   Every animation on the homepage reads its timing from the variables below.
+   Change a value here, save, and reload. No JavaScript edits needed.
+   (The intro animation has its own file: assets/css/intro.css)
+   ========================================================================= */
+
+:root {
+  /* ---- 1. Header paragraphs (rotator) ---------------------------------- */
+  --ti-gap: 1rem;                                   /* space between paragraphs when expanded */
+  --ti-switch-duration: 500ms;                      /* one paragraph sliding out, the next sliding in */
+  --ti-switch-ease: cubic-bezier(0.76, 0, 0.24, 1);
+  --ti-hold-base: 2s;                               /* minimum time each paragraph stays */
+  --ti-hold-per-word: 0.25s;                        /* + this much per word (≈240 words per minute) */
+  --ti-expand-duration: 750ms;                      /* hover open / close */
+  --ti-expand-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ti-hover-delay: 120ms;                          /* pointer must rest this long before it opens */
+  --ti-leave-delay: 300ms;                          /* grace period before it closes again */
+  --ti-offstage-opacity: 0;                         /* 0 = slide + fade, 1 = pure slide like the reference */
+
+  /* ---- 2. Opening / closing a project (viewer transition) -------------- */
+  --vt-blur: 12px;                                  /* how blurry a view gets before it swaps */
+  --vt-out-opacity: 0;                              /* opacity at the swap point (0 hides the swap) */
+  --vt-scale: 1;                                    /* e.g. 0.98 for a slight push-back while blurring */
+  --vt-out-duration: 300ms;                         /* current view blurring away */
+  --vt-out-ease: cubic-bezier(0.55, 0, 1, 0.45);
+  --vt-in-duration: 700ms;                          /* new view coming into focus */
+  --vt-in-ease: cubic-bezier(0, 0.55, 0.45, 1);
+  --index-bg: #f8f8f6;                              /* homepage background */
+  --viewer-bg: #ffffff;                                /* project viewer background */
+}
+
+/* Reduced motion: a short plain crossfade instead of blur. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --vt-blur: 0px;
+    --vt-scale: 1;
+    --vt-out-duration: 150ms;
+    --vt-in-duration: 200ms;
+  }
+}
+
+
+/* ---- 1. Header paragraphs (rotator) ------------------------------------ */
+
+/* Without JavaScript (or with reduced motion) this is the regular stacked layout. */
+.ti-rotator {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ti-gap);
+}
+
+/* rotator.js adds .is-ready and switches to the one-slot layout. */
+.ti-rotator.is-ready {
+  position: relative;
+  height: var(--ti-h, auto);
+  overflow: hidden;
+  outline: none;
+  transition: height var(--ti-switch-duration) var(--ti-switch-ease);
+}
+
+.ti-rotator.is-ready .ti-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translate3d(0, var(--ti-y, 0px), 0);
+  opacity: var(--ti-offstage-opacity);
+  transition:
+    transform var(--ti-switch-duration) var(--ti-switch-ease),
+    opacity var(--ti-switch-duration) var(--ti-switch-ease);
+}
+
+.ti-rotator.is-ready .ti-slide.is-shown {
+  opacity: 1;
+}
+
+/* Opening and closing on hover use their own timing. */
+.ti-rotator.is-ready.is-expanding {
+  transition-duration: var(--ti-expand-duration);
+  transition-timing-function: var(--ti-expand-ease);
+}
+
+.ti-rotator.is-ready.is-expanding .ti-slide {
+  transition-duration: var(--ti-expand-duration);
+  transition-timing-function: var(--ti-expand-ease);
+}
+
+/* Instant repositioning (resizes, font loading, parking hidden slides). */
+.ti-rotator.is-static,
+.ti-rotator.is-static .ti-slide {
+  transition: none !important;
+}
+
+/* Keyboard focus indicator, only for keyboard users. */
+.ti-rotator.is-ready:focus-visible {
+  outline: 1px dotted currentColor;
+  outline-offset: 0.35rem;
+}
+
+
+/* ---- 2. Opening / closing a project (viewer transition) ----------------- */
+/*
+  viewer.js toggles classes on <body>:
+    .vt-hide          the visible view blurs out (and the next one starts blurred)
+    .vt-busy          a transition is running
+    .vt-theme-viewer  the page background is (or is heading to) the viewer colour
+    .vt-instant       skip transitions (direct links to a project)
+  Layers that blur carry the class .vt-layer: #index-view, each .project-detail and the Close button.
+*/
+
+body {
+  background-color: var(--index-bg);
+  transition: background-color var(--vt-out-duration) var(--vt-out-ease);
+}
+
+body.vt-theme-viewer {
+  background-color: var(--viewer-bg);
+}
+
+/* The viewer itself is transparent so the page background can fade between the two colours. */
+#project-viewer {
+  background: transparent;
+}
+
+/* Resting state: no filter or transform at all. (Even blur(0) or scale(1) would break the
+   position: fixed hover titles and Close button, so they are only applied while hidden.) */
+.vt-layer {
+  transition:
+    filter var(--vt-in-duration) var(--vt-in-ease),
+    opacity var(--vt-in-duration) var(--vt-in-ease),
+    transform var(--vt-in-duration) var(--vt-in-ease);
+}
+
+/* The Close button keeps its instant hover lift, so it only transitions blur and opacity. */
+.viewer-back.vt-layer {
+  transition:
+    filter var(--vt-in-duration) var(--vt-in-ease),
+    opacity var(--vt-in-duration) var(--vt-in-ease);
+}
+
+body.vt-hide .vt-layer {
+  filter: blur(var(--vt-blur));
+  opacity: var(--vt-out-opacity);
+  pointer-events: none;
+  transition-duration: var(--vt-out-duration);
+  transition-timing-function: var(--vt-out-ease);
+}
+
+body.vt-hide #index-view,
+body.vt-hide .project-detail {
+  transform: scale(var(--vt-scale));
+}
+
+/* While a filter is applied, position: fixed children stick to the blurred layer instead of the
+   window, so hide the floating hover titles until the transition is over. */
+body.vt-busy .title {
+  visibility: hidden !important;
+}
+
+body.vt-busy .vt-layer {
+  will-change: filter, opacity;
+}
+
+body.vt-instant,
+body.vt-instant .vt-layer {
+  transition: none !important;
+}

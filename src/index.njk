@@ -3,14 +3,19 @@ layout: base.njk
 title: Rasim Bayramov
 home: true
 ---
-<main id="index-view">
+<main id="index-view" class="vt-layer">
   <section class="top-information" aria-label="About Rasim Bayramov">
     <div class="ti-s" id="symbol">&*&</div>
     <div class="ti-bs">
-      <div class="ti-s"><span class="person-name">{{ site.name }}</span> {{ site.intro | safe }}</div>
-      <div class="ti-s">{{ site.teaching | safe }}</div>
-      <div class="ti-s">Clients include<br>{{ site.clients | safe }}</div>
-      <div class="ti-s">Collaborators<br>{{ site.collaborators | safe }}</div>
+      {# Paragraphs inside .ti-rotator take turns in one slot (assets/rotator.js, settings in assets/css/motion.css).
+         data-ti-height="tallest" keeps the slot at the tallest paragraph so the Links line never moves;
+         use "active" to let the slot resize to each paragraph. #}
+      <div class="ti-rotator" data-ti-rotator data-ti-height="tallest">
+        <div class="ti-s ti-slide"><span class="person-name">{{ site.name }}</span> {{ site.intro | safe }}</div>
+        <div class="ti-s ti-slide">{{ site.teaching | safe }}</div>
+        <div class="ti-s ti-slide">Clients include<br>{{ site.clients | safe }}</div>
+        <div class="ti-s ti-slide">Collaborators<br>{{ site.collaborators | safe }}</div>
+      </div>
       <div class="ti-s links-block">Links<br>{% for link in site.links %}<a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.label }}</a>{% if not loop.last %} {% endif %}{% endfor %}</div>
     </div>
   </section>
@@ -38,11 +43,11 @@ home: true
 </main>
 
 <section id="project-viewer" class="project-viewer" aria-live="polite" aria-hidden="true">
-  <button class="viewer-back" type="button" aria-label="Back to project index">← Back</button>
+  <button class="viewer-back vt-layer" type="button" aria-label="Back to project index">Close (X)</button>
 
   {% for project in collections.projects %}
     {% if project.data.detail_enabled %}
-    <article class="project-detail" data-project-detail="{{ project.fileSlug }}" hidden>
+    <article class="project-detail vt-layer" data-project-detail="{{ project.fileSlug }}" hidden>
       <header class="project-information">
         <div class="project-information-main">
           <h1>{{ project.data.title }}</h1>
@@ -79,4 +84,5 @@ home: true
   {% endfor %}
 </section>
 
+<script src="/assets/rotator.js"></script>
 <script src="/assets/viewer.js"></script>
