@@ -245,18 +245,23 @@ a {
   .title {
     position: absolute;
     visibility: visible;
-    left: 0.6rem;
-    bottom: 0.6rem;
-    width: calc(100% - 1.2rem);
-    font-size: 1.35rem;
+    top: auto;
+    left: 0;
+    text-align: center;
+    bottom: 0;
+    width: 100%;
+    height: fit-content;
+    font-size: 0.95em;
     line-height: 0.95;
-    mix-blend-mode: difference;
+    padding: 0;
+    color: white;
+    background-color: #000;
   }
 
   .project-information {
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    padding: 4.5rem 1rem 1.5rem;
+    padding: 1rem;
     font-size: 1rem;
   }
 
@@ -264,9 +269,24 @@ a {
     font-size: 1rem;
   }
 
+  .project-media {
+    width: 100%;
+    height: 100%;
+    padding: 0 1rem 0 1rem;
+  }
+
+  .project-detail {
+    width: 100%;
+    height: 100vh;
+    background: #f8f8f6;
+  }
+
   .viewer-back {
-    top: 1rem;
+    bottom: 1rem;
     left: 1rem;
+    padding: 0.5rem;
     font-size: 1rem;
+    width: fit-content;
+    height: fit-content;
   }
 }
