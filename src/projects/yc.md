@@ -1,6 +1,6 @@
 ---
 title: Yeju Choi Objects + Methods
-home_title: Yeju Choi Objects + Methods
+home_title: Poster for Yeju Choi's lecture at Objects + Methods series, ICA (2025)
 year: '2025'
 order: 6
 listed: true
