@@ -1,38 +1,42 @@
 ---
-title: "Kunsthall Stavanger: MC Toolkit"
-home_title: "Kunsthall Stavanger: Toolkit"
-year: "2025"
+title: 'Kunsthall Stavanger: MC Toolkit'
+home_title: Website for Kunsthall Stavanger (2025)
+year: '2025'
 order: 4
 listed: true
 detail_enabled: true
 coming_soon: false
-display_categories: "Website, Identity"
+display_categories: Website, Identity
 filters:
-  - "Identity"
-  - "Website"
+  - Identity
+  - Website
 cover:
-  type: "video"
-  src: "/assets/ks-cover.webm"
+  type: video
+  src: /assets/ks-cover.webm
 project_links:
-  - label: "Visit the\n                    website here."
-    url: "https://mctoolkit.xyz"
+  - label: |-
+      Visit the
+                          website here.
+    url: https://mctoolkit.xyz
 media:
-  - type: "video"
-    src: "/assets/ks2.webm"
+  - type: video
+    src: /assets/ks2.webm
     autoplay: true
     muted: true
     loop: true
     playsinline: true
     controls: false
-  - type: "video"
-    src: "/assets/ks-cover.webm"
+    volume: null
+  - type: video
+    src: /assets/ks-cover.webm
     autoplay: true
     muted: true
     loop: true
     playsinline: true
     controls: false
-  - type: "video"
-    src: "/assets/ks1.webm"
+    volume: null
+  - type: video
+    src: /assets/ks1.webm
     autoplay: true
     muted: false
     loop: true

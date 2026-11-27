@@ -1,36 +1,60 @@
 ---
-title: "Chameleon"
-home_title: "Chameleon"
-year: "2025"
+title: Chameleon
+home_title: Chameleon, publication for VCUarts (2025)
+year: '2025'
 order: 2
 listed: true
 detail_enabled: true
 coming_soon: false
-display_categories: "Publication, Print, Poster"
+display_categories: Publication, Print, Poster
 filters:
-  - "Print"
-  - "Poster"
+  - Print
+  - Poster
 cover:
-  type: "image"
-  src: "/assets/cham.webp"
-project_links:
-  []
+  type: image
+  src: /assets/cham.webp
+project_links: []
 media:
-  - type: "image"
-    src: "/assets/cham1.webp"
-  - type: "image"
-    src: "/assets/cham4.webp"
-  - type: "image"
-    src: "/assets/cham2.webp"
-  - type: "image"
-    src: "/assets/cham3.webp"
-  - type: "video"
-    src: "/assets/cham1.webm"
+  - type: image
+    src: /assets/cham1.webp
     autoplay: true
     muted: true
     loop: true
     playsinline: true
     controls: false
+    volume: null
+  - type: image
+    src: /assets/cham4.webp
+    autoplay: true
+    muted: true
+    loop: true
+    playsinline: true
+    controls: false
+    volume: null
+  - type: image
+    src: /assets/cham2.webp
+    autoplay: true
+    muted: true
+    loop: true
+    playsinline: true
+    controls: false
+    volume: null
+  - type: image
+    src: /assets/cham3.webp
+    autoplay: true
+    muted: true
+    loop: true
+    playsinline: true
+    controls: false
+    volume: null
+  - type: video
+    src: /assets/cham1.webm
+    autoplay: true
+    muted: true
+    loop: true
+    playsinline: true
+    controls: false
+    volume: null
 ---
 
 Chameleon is a publication produced by the VCU Graphic Design MFA students in their

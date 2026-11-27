@@ -1,43 +1,88 @@
 ---
-title: "what i found under the tree"
-home_title: "what i found under the tree"
-year: "2023"
+title: what i found under the tree
+home_title: what i found under the tree (2023)
+year: '2023'
 order: 16
 listed: true
 detail_enabled: true
 coming_soon: false
-display_categories: "Installation, Website"
+display_categories: Installation, Website
 filters:
-  - "Website"
-  - "Installation"
+  - Website
+  - Installation
 cover:
-  type: "video"
-  src: "/assets/tree.mp4"
+  type: video
+  src: /assets/tree.mp4
 project_links:
-  - label: "Visit the\n                    project"
-    url: "https://underthetree.netlify.app"
+  - label: |-
+      Visit the
+                          project
+    url: https://underthetree.netlify.app
 media:
-  - type: "image"
-    src: "/assets/tree.webp"
-  - type: "image"
-    src: "/assets/tree-6.webp"
-  - type: "image"
-    src: "/assets/tree-2.webp"
-  - type: "image"
-    src: "/assets/tree-5.webp"
-  - type: "image"
-    src: "/assets/tree-3.webp"
-  - type: "image"
-    src: "/assets/tree-7.webp"
-  - type: "video"
-    src: "/assets/tree-8.webm"
+  - type: image
+    src: /assets/tree.webp
+    autoplay: true
+    muted: true
+    loop: true
+    playsinline: true
+    controls: false
+    volume: null
+  - type: image
+    src: /assets/tree-6.webp
+    autoplay: true
+    muted: true
+    loop: true
+    playsinline: true
+    controls: false
+    volume: null
+  - type: image
+    src: /assets/tree-2.webp
+    autoplay: true
+    muted: true
+    loop: true
+    playsinline: true
+    controls: false
+    volume: null
+  - type: image
+    src: /assets/tree-5.webp
+    autoplay: true
+    muted: true
+    loop: true
+    playsinline: true
+    controls: false
+    volume: null
+  - type: image
+    src: /assets/tree-3.webp
+    autoplay: true
+    muted: true
+    loop: true
+    playsinline: true
+    controls: false
+    volume: null
+  - type: image
+    src: /assets/tree-7.webp
+    autoplay: true
+    muted: true
+    loop: true
+    playsinline: true
+    controls: false
+    volume: null
+  - type: video
+    src: /assets/tree-8.webm
     autoplay: true
     muted: true
     loop: true
     playsinline: true
     controls: true
-  - type: "image"
-    src: "/assets/tree-4.webp"
+    volume: null
+  - type: image
+    src: /assets/tree-4.webp
+    autoplay: true
+    muted: true
+    loop: true
+    playsinline: true
+    controls: false
+    volume: null
 ---
 
 "what i found under tree" (2023) reimagined themes of queer archive. The private corner
