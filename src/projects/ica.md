@@ -1,5 +1,5 @@
 ---
-title: Posters for ICA 2024-25
+title: Work for ICA
 home_title: Work for ICA (2024—2025)
 year: '2024'
 order: 12
