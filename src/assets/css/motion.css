@@ -8,9 +8,9 @@
 :root {
   /* ---- 1. Header paragraphs (rotator) ---------------------------------- */
   --ti-gap: 1rem;                                   /* space between paragraphs when expanded */
-  --ti-switch-duration: 500ms;                      /* one paragraph sliding out, the next sliding in */
+  --ti-switch-duration: 400ms;                      /* one paragraph sliding out, the next sliding in */
   --ti-switch-ease: cubic-bezier(0.76, 0, 0.24, 1);
-  --ti-hold-base: 2s;                               /* minimum time each paragraph stays */
+  --ti-hold-base: 400ms;                               /* minimum time each paragraph stays */
   --ti-hold-per-word: 0.25s;                        /* + this much per word (≈240 words per minute) */
   --ti-expand-duration: 750ms;                      /* hover open / close */
   --ti-expand-ease: cubic-bezier(0.22, 1, 0.36, 1);

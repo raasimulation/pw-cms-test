@@ -113,12 +113,13 @@ a {
   left: 2rem;
   text-align: center;
   z-index: 20;
-  color: white;
-  background-color: #000;
   position: fixed;
-  font-family: var(--font-title, inherit);
-  font-weight: var(--font-title-weight, 300);
-  font-size: 1.1rem;
+  font-family: var(--font-body, sans-serif);
+  font-weight: var(--font-body-weight, 400);
+  font-variation-settings: "ROND" var(--font-roundness, 50);
+  font-size: 1rem;
+  color: white;
+  mix-blend-mode: difference;
   line-height: 0.92;
   letter-spacing: -0.045em;
   pointer-events: none;
@@ -225,7 +226,7 @@ a {
 
 @media (max-width: 900px) {
   #index-view {
-    gap: 3rem;
+    gap: 2rem;
   }
 
   .top-information {
@@ -240,7 +241,6 @@ a {
 
   .grid {
     grid-template-columns: repeat(1, minmax(0, 1fr));
-    /* padding: 0 1rem 0 1rem; */
   }
 
   .title {
@@ -248,7 +248,7 @@ a {
     visibility: visible;
     top: auto;
     left: 0;
-    bottom: 0;
+    bottom: 0.5rem;
     text-align: center;
     width: 100%;
     height: fit-content;
@@ -257,11 +257,12 @@ a {
     padding: 0.15rem;
     color: white;
     background-color: black;
+    mix-blend-mode: none;
   }
 
   .project {
     min-width: 0;
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 2.7 / 3;
     /* border: 1px solid #e2e2e2;
     border-radius: 1rem; */
     /* margin-bottom: 1rem; */
